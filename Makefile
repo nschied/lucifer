@@ -6,7 +6,7 @@ FFLAGS  = -O3 -ffast-math
 AR      = ar
 ARFLAGS = rcs
 TARGET  = liblucifer.a
-OBJ     = lucifer.o
+OBJ     = a2hex.o cipher.o compress.o expand.o hex2a.o lucifer.o
 TEST    = luctest
 
 .PHONY: all clean test
@@ -15,7 +15,7 @@ all: $(TARGET)
 test: $(TEST)
 
 $(TARGET):
-	$(FC) $(FFLAGS) -c src/lucifer.f
+	$(FC) $(FFLAGS) -c src/a2hex.f src/cipher.f src/compress.f src/expand.f src/hex2a.f src/lucifer.f
 	$(AR) $(ARFLAGS) $(TARGET) $(OBJ)
 
 $(TEST): $(TARGET)

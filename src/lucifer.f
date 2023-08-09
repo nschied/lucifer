@@ -1,102 +1,4 @@
 C     ******************************************************************
-      SUBROUTINE A2HEX(A, HEX)
-C
-C     CONVERTS 16 CHARACTERS LONG ASCII STRING TO 32 CHARACTERS LONG
-C     HEX STRING.
-C
-      CHARACTER*16 A
-      CHARACTER*32 HEX
-      INTEGER I
-
-      WRITE (HEX, 100) (A(I:I), I = 1, LEN(A))
-  100 FORMAT (16Z2.2)
-      END
-C     ******************************************************************
-      SUBROUTINE HEX2A(HEX, A)
-C
-C     CONVERTS 32 CHARACTERS LONG HEX STRING TO 16 CHARACTERS LONG
-C     ASCII STRING.
-C
-      CHARACTER*32 HEX
-      CHARACTER*16 A
-      INTEGER I
-
-      READ (HEX, 100) (A(I:I), I = 1, LEN(A))
-  100 FORMAT (16Z2.2)
-      END
-C     ******************************************************************
-      SUBROUTINE COMPRESS(A, B, L)
-C
-C     COMPRESSES BIT ARRAY TO BYTE ARRAY.
-C
-      INTEGER A(0:*), B(0:*), L
-      INTEGER I, J
-
-C     A IS THE ARRAY IN BIT ARRAY FORMAT.
-C     B IS THE ARRAY IN BYTE FORMAT.
-C     L IS THE LENGTH OF THE ARRAY B IN HEXDIGITS.
-C     A MUST BE 4 * L LONG.
-
-      DO 10 I = 0, L - 1
-      B(I) = 0
-      DO 20 J = 0, 3
-      B(I) = B(I) * 2 + MOD(A(J + I * 4), 2)
-   20 CONTINUE
-   10 CONTINUE
-      END
-C     ******************************************************************
-      SUBROUTINE EXPAND(A, B, L)
-C
-C     EXPANDS BYTE ARRAY TO BIT ARRAY.
-C
-      INTEGER A(0:*), B(0:*), L
-      INTEGER I, J, V
-
-C     A IS THE ARRAY IN BIT ARRAY FORMAT.
-C     B IS THE ARRAY IN BYTE FORMAT.
-C     L IS THE LENGTH OF THE ARRAY B IN HEXDIGITS.
-C     A MUST BE 4 * L LONG.
-
-      DO 10 I = 0, L - 1
-      V = B(I)
-      DO 20 J = 0, 3
-      A((3 - J) + I * 4) = MOD(V, 2)
-      V = V / 2
-   20 CONTINUE
-   10 CONTINUE
-      END
-C     ******************************************************************
-      SUBROUTINE CIPHER(D, KEY, MSG)
-C
-C     ENCRYPTS HEX STRING WITH HEX KEY IF D IS 0, DECRYPTS IF D IS 1.
-C
-      INTEGER D
-      CHARACTER*32 KEY, MSG
-
-C     D = 1 INDICATES DECIPHER, ENCIPHER OTHERWISE.
-C     KEY AND MESSAGE MUST BE 32 CHARACTERS LONG HEX-DIGITS.
-
-      EXTERNAL COMPRESS, EXPAND, LUCIFER
-
-      INTEGER I
-      INTEGER K(0:7, 0:15), M(0:7, 0:7, 0:1)
-      INTEGER KK(0:127), MM(0:127)
-      INTEGER KB(0:31), MB(0:31)
-
-      EQUIVALENCE (K, KK), (M, MM)
-
-      READ (KEY, 100) (KB(I), I = 0, 31)
-      READ (MSG, 100) (MB(I), I = 0, 31)
-
-      CALL EXPAND(KK, KB, 32)
-      CALL EXPAND(MM, MB, 32)
-      CALL LUCIFER(D, K, M)
-      CALL COMPRESS(MM, MB, 32)
-
-      WRITE (MSG, 100) (MB(I), I = 0, 31)
-  100 FORMAT (32Z1.1)
-      END
-C     ******************************************************************
       SUBROUTINE LUCIFER(D, K, M)
 
 C     LUCIFER, A DIRECT PREDECESSOR OF THE DES ALGORITHM, IS A
@@ -109,8 +11,11 @@ C       ARTHUR SORKIN: LUCIFER, A CRYPTOGRAPHIC ALGORITHM. IN:
 C       CRYPTOLOGIA, VOLUME 8, NUMBER 1, JANUARY 1984
 
       INTEGER D
+Cf2py intent(in)::A
       INTEGER K(0:7, 0:15)
+Cf2py intent(in)::K
       INTEGER M(0:7, 0:7, 0:1)
+Cf2py intent(out)::M
 
 C     MESSAGE BLOCK STORED ONE BIT/LOCATION.
 C     KEY STORED ONE BIT/LOCATION.
