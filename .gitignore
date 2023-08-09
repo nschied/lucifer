@@ -1,5 +1,8 @@
+*.o
 *.a
 *.so
+*.out
+*.exe
 
 # Distribution / packaging
 env/
@@ -10,5 +13,4 @@ var/
 # Other stuff
 *.swp
 *.mod
-*.o
 *.cmt
