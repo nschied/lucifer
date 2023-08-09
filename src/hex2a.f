@@ -9,7 +9,8 @@ Cf2py intent(in) HEX
       CHARACTER*16 A
 Cf2py intent(out) A
       INTEGER I
-
+      I=0
       READ (HEX, 100) (A(I:I), I = 1, LEN(A))
-  100 FORMAT (16Z2.2)
+C
+ 100  FORMAT (16Z2.2)
       END
