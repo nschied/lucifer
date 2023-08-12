@@ -4,10 +4,10 @@ C
 C     ENCRYPTS HEX STRING WITH HEX KEY IF D IS 0, DECRYPTS IF D IS 1.
 C
       INTEGER D
-Cf2py iintent(in)::D
+Cf2py intent(in)::D
       CHARACTER*32 KEY, MSG
 Cf2py intent(in)::KEY
-Cf2py intent(out)::MSG
+Cf2py intent(in,out)::MSG
 
 C     D = 1 INDICATES DECIPHER, ENCIPHER OTHERWISE.
 C     KEY AND MESSAGE MUST BE 32 CHARACTERS LONG HEX-DIGITS.
