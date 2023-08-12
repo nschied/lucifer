@@ -5,7 +5,7 @@ FFLAGS  = -O3 -ffast-math
 AR      = ar
 ARFLAGS = rcs
 TARGET  = liblucifer.a
-SRC		= src/a2hex.f src/cipher.f src/compress.f src/expand.f src/hex2a.f src/lucifer.f
+SRC	= src/a2hex.f src/cipher.f src/compress.f src/expand.f src/hex2a.f src/lucifer.f
 OBJ     = a2hex.o cipher.o compress.o expand.o hex2a.o lucifer.o
 TEST    = luctest.exe
 
@@ -23,7 +23,7 @@ $(TEST): $(TARGET)
 	$(FC) $(FFLAGS) -o $(TEST) test/luctest.f $(TARGET)
 
 py:
-	f2py -c $(SRC) -m lucypy	
+	f2py -c $(SRC) -m lucipy	
 
 clean:
 	if [ `ls -1 *.o 2>/dev/null | wc -l` -gt 0 ]; then rm *.o; fi
