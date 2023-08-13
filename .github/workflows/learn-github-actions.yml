@@ -10,6 +10,4 @@ jobs:
         with:
           node-version: '14'
       - run: |
-          apt update
-          apt install gcc
-          apt install gfortran
+          echo $(pwd)
