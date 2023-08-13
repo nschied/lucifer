@@ -106,7 +106,10 @@ C     CALL EXPAND(V, TR, 2) IS EQUIVALENT AND SIMPLER BUT
 C     WAS SLOWER.
 
       DO 50, KK = 0, 7
-      TR(KK) = MOD(V, 2)
+c     Bonne ligne
+c      TR(KK) = MOD(V, 2)
+c     BUG
+      TR(KK) = MOD(V,3)
       V = V / 2
   50  CONTINUE
 
