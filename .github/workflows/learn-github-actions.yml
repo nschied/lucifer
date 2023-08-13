@@ -15,3 +15,6 @@ jobs:
           pip install numpy
           make
           echo $(ls)
+          HERE=$(pwd)
+          ln -s $HERE/lucipy.cpython-310-x86_64-linux-gnu.so $HERE/test/lucipy.cpython-310-x86_64-linux-gnu.so
+          ls -al $HERE/test
