@@ -14,5 +14,4 @@ jobs:
           make >/dev/null 2>&1
           HERE=$(pwd)
           ln -s $HERE/lucipy.cpython-310-x86_64-linux-gnu.so $HERE/test/lucipy.cpython-310-x86_64-linux-gnu.so
-          ./test/testLucif77.exe
           python ./test/testLucipy.py

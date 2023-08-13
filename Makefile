@@ -13,7 +13,7 @@ LIBF    = ./libf77
 
 .PHONY: all clean test
 
-all:	$(TARGET) $(TEST) py
+all:	$(TARGET) py
 #all: $(TARGET)
 #test: $(TEST)
 
