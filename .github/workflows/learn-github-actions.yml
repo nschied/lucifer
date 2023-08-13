@@ -12,4 +12,4 @@ jobs:
       - run: |
           echo $(pwd)
           echo $(ls)
-          make
+          pip install numpy
