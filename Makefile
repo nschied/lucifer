@@ -7,7 +7,7 @@ ARFLAGS = rcs
 TARGET  = liblucifer.a
 SRC	= src/a2hex.f src/cipher.f src/compress.f src/expand.f src/hex2a.f src/lucifer.f
 OBJ     = a2hex.o cipher.o compress.o expand.o hex2a.o lucifer.o
-TEST    = ./test/luctest.exe
+TEST    = ./test/testLucif77.exe
 LIBPY   = ./libpy
 LIBF    = ./libf77
 
@@ -24,7 +24,7 @@ $(TARGET):
 	rm -f *.o
 	
 $(TEST): $(TARGET)
-	$(FC) $(FFLAGS) -o $(TEST) test/luctest.f $(LIBF)/$(TARGET)
+	$(FC) $(FFLAGS) -o $(TEST) test/testLucif77.f $(LIBF)/$(TARGET)
 
 py:
 	f2py -c $(SRC) -m lucipy
