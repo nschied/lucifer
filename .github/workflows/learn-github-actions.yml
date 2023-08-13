@@ -9,8 +9,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
-      - run: |
+      - run: 
           apt update
           apt install gcc
           apt install gfortran
-          make
