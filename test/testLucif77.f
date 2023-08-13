@@ -16,32 +16,33 @@ C     ******************************************************************
 C     ******************************************************************
       SUBROUTINE TEST1()
       EXTERNAL CIPHER
-      CHARACTER*32 KEY, MSG, REF
+      CHARACTER*32 KEY, MSG, REF1 , REF2
 
-	  LOGICAL ISOK
-	  ISOK = .FALSE.
+      LOGICAL ISOK
+      ISOK = .FALSE.
 
       KEY = '0123456789ABCDEFFEDCBA9876543210'
       MSG = 'AAAAAAAAAAAAAAAABBBBBBBBBBBBBBBB'
-	  REF = '7C790EFDE03679E4BF28FE2D199E41A0'
+      REF1 = '7C790EFDE03679E4BF28FE2D199E41A0'
+      REF2 = MSG
 
       CALL CIPHER(0, KEY, MSG)
 
-      IF(MSG.EQ.REF) THEN
-			  ISOK = .TRUE.
-	  ELSE
-			  ISOK = .FALSE.
+      IF(MSG.EQ.REF1) THEN
+        ISOK = .TRUE.
+      ELSE
+        ISOK = .FALSE.
       ENDIF
 
       CALL CIPHER(1, KEY, MSG)
 
-      IF(MSG.EQ.MSG) THEN
-              ISOK = .TRUE.
-	  ELSE
-			  ISOK = .FALSE.
+      IF(MSG.EQ.REF2) THEN
+          ISOK = .TRUE.
+      ELSE
+        ISOK = .FALSE.
       ENDIF
-	  
-	  IF(ISOK) THEN
+c	  
+      IF(ISOK) THEN
               PRINT*, '>>> F77 TEST 1: OK'
       ELSE
               PRINT*, '>>> F77 TEST 1: KO'
@@ -57,16 +58,16 @@ C     ******************************************************************
       WRITE (KEY, 100) (INT(RAND() * 16), I = 1, 32)
 
       MSG = 'AAAAAAAAAAAAAAAABBBBBBBBBBBBBBBB'
-	  REF = MSG
+      REF = MSG
 
       CALL CIPHER(0, KEY, MSG)
       CALL CIPHER(1, KEY, MSG)
 
-	  IF(MSG.EQ.REF) THEN
-		PRINT*, '>>> F77 TEST 2: OK'
-	  ELSE
-		PRINT*, '>>> F77 TEST 2: KO'  
-	  ENDIF
+      IF(MSG.EQ.REF) THEN
+        PRINT*, '>>> F77 TEST 2: OK'
+      ELSE
+        PRINT*, '>>> F77 TEST 2: KO'  
+      ENDIF
 
   100 FORMAT (32Z1.1)
       END
@@ -76,38 +77,39 @@ C     ******************************************************************
       CHARACTER*32 KEY, MSG, REF
       INTEGER I, J , K , LL
       REAL T1, T2, DT
-	  T1=0.
-	  T2=0.
+      T1=0.
+      T2=0.
 
       MSG = 'AAAAAAAAAAAAAAAABBBBBBBBBBBBBBBB'
-	  REF = MSG
+      REF = MSG
 
       CALL CPU_TIME(T1)
 
-      DO 10 J = 1, 1000
+      DO 10 J = 1, 10000
       WRITE (KEY, 100) (INT(RAND() * 16), I = 1, 32)
       CALL CIPHER(0, KEY, MSG)
       CALL CIPHER(1, KEY, MSG)
    10 CONTINUE
    
 C     Loop to consume CPU time
-C     LL = 25000
       LL = 10
+C    LL = 10
       K=0
       DO 666 I=1,LL
-	    K=K+I
-	    DO 667 J=1,LL
-		   K=K-J
-  667   CONTINUE
+      K=K+I
+      DO 667 J=1,LL
+      K=K-J
+  667 CONTINUE
+c      PRINT*, K
   666 CONTINUE
   
       CALL CPU_TIME(T2)
-	  DT = ABS(T2-T1)
+      DT = ABS(T2-T1)
 
       IF((DT.LE.1.).AND.(MSG.EQ.REF)) THEN
-              PRINT*, '>>> F77 TEST 3: OK'
+              PRINT*, '>>> F77 TEST 3: OK' 
       ELSE
-              PRINT*, '>>> F77 TEST 3: KO'
+              PRINT*, '>>> F77 TEST 3: KO' 
       ENDIF
 
   100 FORMAT (32Z1.1)
@@ -118,22 +120,22 @@ C     ******************************************************************
       EXTERNAL A2HEX, CIPHER, HEX2A
       CHARACTER*16 RAWKEY, RAWMSG
       CHARACTER*32 KEY, MSG, REF, RESU
-	  LOGICAL ISOK
+      LOGICAL ISOK
 
       RAWKEY = 'SUPERSECRET'
       RAWMSG = 'ATTACK AT DAWN'
-	  REF = RAWMSG
+      REF = RAWMSG
 
       CALL A2HEX(RAWKEY, KEY)
       CALL A2HEX(RAWMSG, MSG)
       CALL CIPHER(0, KEY, MSG)
       CALL CIPHER(1, KEY, MSG)
       CALL HEX2A(MSG, RESU)
-	  
-	  IF(RESU(1:14).EQ.REF(1:14)) THEN
-		PRINT*,  '>>> F77 TEST 4: OK'
-	  ELSE
-	    PRINT*,  '>>> F77 TEST 4: KO'
-	  ENDIF
+c  
+      IF(RESU(1:14).EQ.REF(1:14)) THEN
+        PRINT*,  '>>> F77 TEST 4: OK'
+      ELSE
+        PRINT*,  '>>> F77 TEST 4: KO'
+      ENDIF
 
       END

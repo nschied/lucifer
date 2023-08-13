@@ -106,10 +106,7 @@ C     CALL EXPAND(V, TR, 2) IS EQUIVALENT AND SIMPLER BUT
 C     WAS SLOWER.
 
       DO 50, KK = 0, 7
-c     Bonne ligne
-c      TR(KK) = MOD(V, 2)
-c     BUG
-      TR(KK) = MOD(V,3)
+      TR(KK) = MOD(V, 2)
       V = V / 2
   50  CONTINUE
 
@@ -128,7 +125,7 @@ C     ROW = BYTE AND COLUMN = BIT WITHIN BYTE.
 
 C     SWAP VALUES IN H0 AND H1 TO SWAP HALVES OF MESSAGE.
       LL = H0
-      H0 = H1 
+      H0 = H1
       H1 = LL
   10  CONTINUE
 
