@@ -20,15 +20,15 @@ all:	$(TARGET) $(TEST) py
 $(TARGET):
 	$(FC) $(FFLAGS) -c $(SRC)
 	$(AR) $(ARFLAGS) $(TARGET) $(OBJ)
-	if [ -e $(LIBF) ]; then rm -rf $(LIBF); mkdir $(LIBF); mv $(TARGET) $(LIBF); fi 
+#	if [ -e $(LIBF) ]; then rm -rf $(LIBF); mkdir $(LIBF); mv $(TARGET) $(LIBF); fi 
 	rm -f *.o
 	
 $(TEST): $(TARGET)
-	$(FC) $(FFLAGS) -o $(TEST) test/testLucif77.f $(LIBF)/$(TARGET)
+	$(FC) $(FFLAGS) -o $(TEST) test/testLucif77.f $(TARGET)
 
 py:
 	f2py -c $(SRC) -m lucipy
-	if [ -e $(LIBPY) ]; then rm -rf $(LIBPY); mkdir $(LIBPY); mv lucipy*.so $(LIBPY); fi	 	
+#	if [ -e $(LIBPY) ]; then rm -rf $(LIBPY); mkdir $(LIBPY); mv lucipy*.so $(LIBPY); fi	 	
 
 clean: 
 	if [ `ls -1 *.o 2>/dev/null | wc -l` -gt 0 ]; then rm *.o; fi

@@ -10,6 +10,6 @@ jobs:
         with:
           node-version: '14'
       - run: |
-          echo $(pwd)a
-          echo $(ls)a
+          echo $(pwd)
+          echo $(ls)
           make
