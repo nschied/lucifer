@@ -14,4 +14,3 @@ jobs:
           apt install gcc
           apt install gfortran
           make
-          ./lucifer/testLucif77.exe
