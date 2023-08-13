@@ -10,11 +10,10 @@ jobs:
         with:
           node-version: '14'
       - run: |
-          echo $(pwd)
-          echo $(ls)
           pip install numpy
           make
-          echo $(ls)
           HERE=$(pwd)
           ln -s $HERE/lucipy.cpython-310-x86_64-linux-gnu.so $HERE/test/lucipy.cpython-310-x86_64-linux-gnu.so
           ls -al $HERE/test
+          ./test/testLucif77.exe
+          python testLucipy.py
