@@ -13,3 +13,5 @@ jobs:
           echo $(pwd)
           echo $(ls)
           pip install numpy
+          make
+          echo $(ls)
