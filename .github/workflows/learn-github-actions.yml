@@ -10,4 +10,5 @@ jobs:
         with:
           node-version: '14'
       - run: |
-          echo $(pwd)
+          echo $(pwd)a
+          echo $(ls)
