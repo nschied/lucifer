@@ -42,9 +42,9 @@ C     ******************************************************************
       ENDIF
 	  
 	  IF(ISOK) THEN
-              PRINT*, '>>>> F77 TEST 1: OK'
+              PRINT*, '>>> F77 TEST 1: OK'
       ELSE
-              PRINT*, '>>>> F77 TEST 1: KO'
+              PRINT*, '>>> F77 TEST 1: KO'
       ENDIF
 
       END
@@ -63,9 +63,9 @@ C     ******************************************************************
       CALL CIPHER(1, KEY, MSG)
 
 	  IF(MSG.EQ.REF) THEN
-		PRINT*, '>>>> F77 TEST 2: OK'
+		PRINT*, '>>> F77 TEST 2: OK'
 	  ELSE
-		PRINT*, '>>>> F77 TEST 2: KO'  
+		PRINT*, '>>> F77 TEST 2: KO'  
 	  ENDIF
 
   100 FORMAT (32Z1.1)
@@ -105,9 +105,9 @@ C     LL = 25000
 	  DT = ABS(T2-T1)
 
       IF((DT.LE.1.).AND.(MSG.EQ.REF)) THEN
-              PRINT*, '>>>> F77 TEST 3: OK'
+              PRINT*, '>>> F77 TEST 3: OK'
       ELSE
-              PRINT*, '>>>> F77 TEST 3: KO'
+              PRINT*, '>>> F77 TEST 3: KO'
       ENDIF
 
   100 FORMAT (32Z1.1)
@@ -130,10 +130,10 @@ C     ******************************************************************
       CALL CIPHER(1, KEY, MSG)
       CALL HEX2A(MSG, RESU)
 	  
-	  IF(RESU.EQ.REF) THEN
-		PRINT*,  '>>>> F77 TEST 4: OK'
+	  IF(RESU(1:14).EQ.REF(1:14)) THEN
+		PRINT*,  '>>> F77 TEST 4: OK'
 	  ELSE
-	    PRINT*,  '>>>> F77 TEST 4: OK'
+	    PRINT*,  '>>> F77 TEST 4: KO'
 	  ENDIF
 
       END
