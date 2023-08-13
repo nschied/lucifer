@@ -11,4 +11,5 @@ jobs:
           node-version: '14'
       - run: |
           echo $(pwd)a
-          echo $(ls)
+          echo $(ls)a
+          make
