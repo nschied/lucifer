@@ -56,7 +56,8 @@ class TestLucipy(unittest.TestCase):
     def test_encode_decode(self):
         rawkey = '25Novembre1981'
         key = lucipy.a2hex(rawkey)
-        rawmsg = 'Naissance de moi'
+        #rawmsg = 'Naissance de moi'
+        rawmsg = 'Naissance de Dieu'
         msg = lucipy.a2hex(rawmsg)
         self.assertEqual(  lucipy.hex2a( lucipy.cipher(0,key,lucipy.cipher(1,key,msg))),rawmsg.encode('UTF-8'))
         
