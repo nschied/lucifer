@@ -1,3 +1,6 @@
+Fork of https://github.com/interkosmos/lucifer
+with modifications to generate python lybrarie using f2py
+
 # Lucifer
 
 This is an implementation of Arthur Sorkin’s variant of the
